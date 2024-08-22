@@ -10,6 +10,7 @@ use App\Http\Controllers\UniteController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +24,10 @@ use App\Http\Controllers\ProductController;
 */
 
 Route::get('/',[HomeController::class,'index'])->name('home');
-Route::get('/product-category',[HomeController::class,'category'])->name('product-category');
-Route::get('/product-detail',[HomeController::class,'product'])->name('product-detail');
+Route::get('/product-category/{id}',[HomeController::class,'category'])->name('product-category');
+Route::get('/product-detail/{id}',[HomeController::class,'product'])->name('product-detail');
 
-
+Route::resources(['cart'=>CartController::class,]);
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
 
@@ -41,9 +42,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::resource('size',SizeController::class);
     Route::resource('product',ProductController::class);
     Route::get('/get-sub-category-by-category',[ProductController::class,'getSubCategoryByCategory'])->name('get-sub-category-by-category');
-
-
-
 
 });
 

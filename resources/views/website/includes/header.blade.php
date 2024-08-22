@@ -295,10 +295,10 @@
                             <ul>
                                 @foreach($categories as $category)
                                 <li class="{{ count($category->subCategory) > 0 ? 'has-children' : '' }}">
-                                    <a href="{{ route('product-category') }}"><i class="evara-font-dress"></i>{{ $category->name }}</a>
+                                    <a href="{{ route('product-category',['id'=> $category->id]) }}"><i class="evara-font-dress"></i>{{ $category->name }}</a>
                                     @if (count($category->subCategory) > 0)
                                     <div class="dropdown-menu">
-                                        <ul class="mega-menu d-lg-flex">
+                                        <ul class="mega-menu d-lg-flex">    
                                             <li class="mega-menu-col col-lg-7">
                                                 <ul class="d-lg-flex">
                                                     <li class="mega-menu-col col-lg-6">

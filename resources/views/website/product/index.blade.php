@@ -78,33 +78,25 @@
                                             
                                         </div>
                                         <div class="attr-detail attr-color mb-15">
-                                            <strong class="mr-10">Color</strong>
-                                            <ul class="list-filter color-filter">
-                                                @foreach ($product->colors as $color)
-                                                    <li>
-                                                        <a href="#" data-color="{{$color->color->name}}">
-                                                            <span class="" style=" background-color: {{$color->color->code}}; border: 1px solid grey;"></span>
-                                                            <input type="hidden" name="color" value="{{$color->color->code}}">
-                                                        </a>
-                                                    </li>
+                                            <strong class="mr-10">Color: </strong>
+                                            <div class="mt-2">
+                                                @foreach ($product->colors as $key => $color)
+                                               
+                                                    <!-- <span class="" style=" background-color: {{$color->color->code}}; border: 1px solid grey;"></span> -->
+                                                    <label><input type="radio" name="color" {{ $key == 0 ? "checked" : " "  }} value="{{$color->color->code}}" style=" background-color: {{$color->color->code}}; width: 20px; height: 10px;"> {{$color->color->name}}</label>
                                                     
-                                                    
-
                                                 @endforeach
-                                                
-                                            </ul>
+                                            </div>
                                         </div>
                                     
                                         <div class="attr-detail attr-size">
-                                            <strong class="mr-10">Size</strong>
-                                            <ul class="list-filter size-filter font-small">
-                                                @foreach ($product->sizes as $size)
-                                                
-                                                <li><a href="#">{{$size->size->name}}</a></li>
-                                                <input type="hidden" name="size" value="{{$size->size->code}}">
+                                            <strong class="mr-10">Size: </strong>
+                                            <div class="mt-2">
+                                                @foreach ($product->sizes as $key1 => $size)
+                                                    <label><input type="radio" name="size" {{ $key1 == 0 ? "checked" : " "  }} value="{{$size->size->name}}" style="width: 20px; height: 10px;"> {{$size->size->name}}</label>
                                                 @endforeach
                                             
-                                            </ul>
+                                            </div>
                                         </div>
                                         <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                                         <div class="detail-extralink">

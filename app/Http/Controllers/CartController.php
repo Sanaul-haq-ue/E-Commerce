@@ -34,14 +34,12 @@ class CartController extends Controller
     public function store(Request $request)
     {
 
-        return $request;
-
         self::$product = Product::find($request->id);
 
         Cart::add([
             'id' => $request->id,
             'name' => self::$product->name,
-            'qty' => 1,
+            'qty' => $request->qty,
             'price' => self::$product->selling_price,
             'options' =>
                 [
@@ -52,7 +50,7 @@ class CartController extends Controller
                 ]
             ]);
 
-        return redirect(route('carts.index'))->with('message','added Succesfully');
+        return redirect()->route('cart.index')->with('message','added Succesfully');
     }
 
     /**
@@ -84,6 +82,7 @@ class CartController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Cart::remove($id);
+        return back()->with('message', 'product remove successful');
     }
 }

@@ -19,6 +19,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive">
+                            <p class="text-center">{{session('message')}}</p>
                             <table class="table shopping-summery text-center clean">
                                 <thead>
                                     <tr class="main-heading">
@@ -36,11 +37,13 @@
                                         <td
                                          class="image product-thumbnail"><img src="{{asset($product->options->image)}}" alt="#"></td>
                                         <td class="product-des product-name">
-                                            <h5 class="product-name"><a href="shop-product-right.html">{{$product->name}}</a></h5>
-                                            <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy magndapibus.
+                                            <h5 class="product-name"><a href="{{ route('product-detail', ['id' => $product->id ]) }}" target="blank">{{$product->name}}</a></h5>
+                                            <p class="font-xs">
+                                                <span>Color: </span> {{ $product->options->color }} </br>
+                                                <span>Size: </span> {{ $product->options->size }} </br>
                                             </p>
                                         </td>
-                                        <td class="price" data-title="Price"><span>{{$product->price}} </span></td>
+                                        <td class="price" data-title="Price"><span>TK. {{$product->price}} </span></td>
                                         <td class="text-center" data-title="Stock">
                                             <div class="detail-qty border radius  m-auto">
                                                 <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
@@ -49,9 +52,18 @@
                                             </div>
                                         </td>
                                         <td class="text-right" data-title="Cart">
-                                            <span>$65.00 </span>
+                                            <span>TK. {{ $product->subtotal}} </span>
                                         </td>
-                                        <td class="action" data-title="Remove"><a href="#" class="text-muted"><i class="fi-rs-trash"></i></a></td>
+                                        <td class="action" data-title="Remove">
+                                            <form action="{{ route('cart.destroy', $product->rowId) }}" method="POST" onclick="return confirm('Are you sure.....')">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    <i class="fi-rs-trash"></i>
+                                                </button>
+
+                                            </form>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>

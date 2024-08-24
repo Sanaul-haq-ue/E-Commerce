@@ -29,7 +29,8 @@ Route::get('/product-detail/{id}',[HomeController::class,'product'])->name('prod
 
 Route::resources(['cart'=>CartController::class,]);
 
-
+Route::get('/cart/delete-product/{rowId}', [CartController::class,'delete'])->name('cart.delete-product');
+Route::post('/cart/update-product', [CartController::class,'updateProduct'])->name('cart.update-product');
 
 
 

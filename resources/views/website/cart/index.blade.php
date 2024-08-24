@@ -18,6 +18,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
+                        <form action="{{route('cart.update-product')}}" method="POST">
+                            
+                            @csrf
                         <div class="table-responsive">
                             <p class="text-center">{{session('message')}}</p>
                             <table class="table shopping-summery text-center clean">
@@ -32,7 +35,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($products as $product)
+                                    @php($sum = 0)
+                                    @foreach ($products as $key=> $product)
                                     <tr>
                                         <td
                                          class="image product-thumbnail"><img src="{{asset($product->options->image)}}" alt="#"></td>
@@ -45,34 +49,32 @@
                                         </td>
                                         <td class="price" data-title="Price"><span>TK. {{$product->price}} </span></td>
                                         <td class="text-center" data-title="Stock">
-                                            <div class="detail-qty border radius  m-auto">
-                                                <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                                <span class="qty-val">{{$product->qty}}</span>
-                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+                                            <div class="w-25  m-auto">
+
+                                                <input type="number" name="data[{{$key}}][qty]" class="from-control" min="1" value="{{$product->qty}}">
+                                                <input type="hidden" name="data[{{$key}}][rowId]" class="from-control" value="{{$product->rowId}}">
+
                                             </div>
                                         </td>
                                         <td class="text-right" data-title="Cart">
                                             <span>TK. {{ $product->subtotal}} </span>
                                         </td>
                                         <td class="action" data-title="Remove">
-                                            <form action="{{ route('cart.destroy', $product->rowId) }}" method="POST" onclick="return confirm('Are you sure.....')">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm">
-                                                    <i class="fi-rs-trash"></i>
-                                                </button>
-
-                                            </form>
+                                            <a href="{{ route('cart.delete-product', ['rowId' => $product->rowId]) }}" onclick="return confirm('Are you sure.....')" class="btn btn-danger btn-sm">
+                                                <i class="fi-rs-trash"></i>
+                                            </a>
                                         </td>
                                     </tr>
+                                    @php($sum = $sum + $product->subtotal)
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
                         <div class="cart-action text-end">
-                            <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-shuffle mr-10"></i>Update Cart</a>
+                            <button type="submit" class="btn  mr-10 mb-sm-15"><i class="fi-rs-shuffle mr-10"></i>Update Cart</button>
                             <a class="btn "><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
                         </div>
+                        </form>
                         <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
                         <div class="row mb-50">
                             <div class="col-lg-6 col-md-12">
@@ -380,7 +382,11 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="cart_total_label">Cart Subtotal</td>
-                                                    <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">$240.00</span></td>
+                                                    <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">TK. {{$sum}}</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cart_total_label">Tax Amount (15%)</td>
+                                                    <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">TK. {{$tax = round($sum * 0.15)}}</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Shipping</td>
@@ -388,7 +394,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Total</td>
-                                                    <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">$240.00</span></strong></td>
+                                                    <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">Tk. {{$sum + $tax }}</span></strong></td>
                                                 </tr>
                                             </tbody>
                                         </table>

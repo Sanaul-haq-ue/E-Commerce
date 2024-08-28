@@ -238,6 +238,7 @@
                                 </a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
+                                        @php($sum = 0)
                                         @foreach (Cart::content() as $cartItem)
                                             <li>
                                                 <div class="shopping-cart-img">
@@ -245,7 +246,7 @@
                                                 </div>
                                                 <div class="shopping-cart-title">
                                                     <h4><a href="">{{$cartItem->name}}</a></h4>
-                                                    <h4><span>{{$cartItem->qty}} × </span>{{$cartItem->subtotal}}</h4>
+                                                    <h4><span>{{$cartItem->qty}} × </span>{{round($cartItem->subtotal)}}</h4>
                                                 </div>
                                                 <div class="shopping-cart-delete">
                                                     <form action="{{ route('cart.destroy', $cartItem->rowId) }}" method="POST">
@@ -257,16 +258,17 @@
                                                     </form>
                                                 </div>
                                             </li>
+                                            @php($sum = $sum + $cartItem->subtotal )
                                         @endforeach
                                         
                                     </ul>
                                     <div class="shopping-cart-footer">
                                         <div class="shopping-cart-total">
-                                            <h4>Total <span>$4000.00</span></h4>
+                                            <h4>Total <span>{{round($sum)}}</span></h4>
                                         </div>
                                         <div class="shopping-cart-button">
                                             <a href="{{route('cart.index')}}" class="outline">View cart</a>
-                                            <a href="shop-checkout.html">Checkout</a>
+                                            <a href="{{route('checkout')}}">Checkout</a>
                                         </div>
                                     </div>
                                 </div>

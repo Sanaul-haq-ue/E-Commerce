@@ -11,6 +11,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,9 @@ Route::resources(['cart'=>CartController::class,]);
 Route::get('/cart/delete-product/{rowId}', [CartController::class,'delete'])->name('cart.delete-product');
 Route::post('/cart/update-product', [CartController::class,'updateProduct'])->name('cart.update-product');
 
+Route::get('/checkout', [CheckoutController::class,'index'])->name('checkout');
+Route::post('/checkout/new-order', [CheckoutController::class,'newOrder'])->name('checkout.new-order');
+Route::get('/complete-order', [CheckoutController::class,'completeOrder'])->name('/complete-order');
 
 
 

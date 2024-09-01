@@ -12,6 +12,7 @@ use App\Http\Controllers\SizeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CustomerAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,15 @@ Route::post('/cart/update-product', [CartController::class,'updateProduct'])->na
 
 Route::get('/checkout', [CheckoutController::class,'index'])->name('checkout');
 Route::post('/checkout/new-order', [CheckoutController::class,'newOrder'])->name('checkout.new-order');
-Route::get('/complete-order', [CheckoutController::class,'completeOrder'])->name('/complete-order');
+Route::get('/complete-order', [CheckoutController::class,'completeOrder'])->name('complete-order');
+
+
+Route::get('/login-register', [CustomerAuthController::class,'index'])->name('login-register');
+Route::post('/login-check', [CustomerAuthController::class,'loginCheck'])->name('login-check');
+Route::post('/new-customer', [CustomerAuthController::class,'newCustomer'])->name('new-customer');
+Route::get('/customer-logout', [CustomerAuthController::class,'logout'])->name('customer-logout');
+
+Route::get('/my-dashboard', [CustomerAuthController::class,'myDashboard'])->name('my-dashboard');
 
 
 

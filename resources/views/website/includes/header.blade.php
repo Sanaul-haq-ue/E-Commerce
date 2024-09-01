@@ -191,7 +191,17 @@
                                     <li><a href="#"><img src="{{ asset('website') }}/assets/imgs/theme/flag-ru.png" alt="">Pусский</a></li>
                                 </ul>
                             </li>
-                            <li><i class="fi-rs-user"></i><a href="page-login-register.html">Log In / Sign Up</a></li>
+                            @if (Session::get('customer_id'))
+                            <li>
+                                <a class="language-dropdown-active" href="#"> <i class="fi-rs-user"></i> {{Session::get('customer_name')}} <i class="fi-rs-angle-small-down"></i></a>
+                                <ul class="language-dropdown">
+                                    <li><a href="{{route('my-dashboard')}}"><i class="fi-rs-user"></i>Dashboard</a></li>
+                                    <li><a href="{{route('customer-logout')}}"><i class="fi-rs-lock"></i>Logout</a></li>
+                                </ul>
+                            </li>
+                            @else
+                            <li><i class="fi-rs-user"></i><a href="{{route('login-register')}}">Log In / Sign Up</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>

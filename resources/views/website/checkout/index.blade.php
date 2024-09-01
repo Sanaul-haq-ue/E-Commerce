@@ -22,6 +22,18 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
+                        @if (Session::get('customer_id'))
+
+                        <div class="mb-25">
+                            <h4>Billing Details</h4>
+                        </div>
+
+                        <div class="form-group">
+                            <span><a href="" class="btn btn-fill-out btn-block mt-30">Change Billing Address</a></span>
+                        </div>
+                        
+                        @else
+
                         <div class="mb-25">
                             <h4>Billing Details</h4>
                         </div>
@@ -47,17 +59,8 @@
                             <div class="form-group">
                                 <input required="" type="text" name="zipcode" placeholder="Postcode / ZIP *">
                             </div>
-                            <div class="form-group">
-                                <label pl-2>Payment Mode: </label>
-                                <div class="custome-radio">
-                                        <input class="form-check-input" required="" type="radio" name="payment_option" value="cash" id="exampleRadios3" checked="">
-                                        <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">cash</label>
-                                    </div>
-                                    <div class="custome-radio">
-                                        <input class="form-check-input" required="" type="radio" name="payment_option" value="online" id="exampleRadios4" checked="">
-                                        <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">Online</label>
-                                    </div>
-                            </div>
+                        @endif
+                            
                         
                     </div>
                     <div class="col-md-6">
@@ -108,6 +111,21 @@
                                 </table>
                             </div>
                             <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                            <div class="payment_method">
+                                <div class="mb-25">
+                                    <h5>Payment</h5>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custome-radio">
+                                        <input class="form-check-input" required="" type="radio" name="payment_option" value="cash" id="exampleRadios3" checked="">
+                                        <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">cash</label>
+                                    </div>
+                                    <div class="custome-radio">
+                                        <input class="form-check-input" required="" type="radio" name="payment_option" value="online" id="exampleRadios4" checked="">
+                                        <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">Online</label>
+                                    </div>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-fill-out btn-block mt-30">Place Order</button>
                         </div>
                     </div>

@@ -13,6 +13,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerAuthController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\WishlishController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,9 @@ Route::post('/checkout/new-order', [CheckoutController::class,'newOrder'])->name
 Route::get('/complete-order', [CheckoutController::class,'completeOrder'])->name('complete-order');
 
 
+// Route::get('/wishlist-add/{$id}', [WishlishController::class,'wishlistAdd'])->name('wishlist-add');
+
+
 Route::get('/login-register', [CustomerAuthController::class,'index'])->name('login-register');
 Route::post('/login-check', [CustomerAuthController::class,'loginCheck'])->name('login-check');
 Route::post('/new-customer', [CustomerAuthController::class,'newCustomer'])->name('new-customer');
@@ -61,6 +66,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::resource('size',SizeController::class);
     Route::resource('product',ProductController::class);
     Route::get('/get-sub-category-by-category',[ProductController::class,'getSubCategoryByCategory'])->name('get-sub-category-by-category');
+
+    Route::get('/manage-order', [OrderController::class,'index'])->name('manage-order');
+    Route::get('/order-view/{id}', [OrderController::class,'orderView'])->name('order-view');
+    Route::get('/order-edit', [OrderController::class,'orderEdit'])->name('order-edit');
+    Route::get('/order-delete', [OrderController::class,'orderDelete'])->name('order-delete');
 
 });
 

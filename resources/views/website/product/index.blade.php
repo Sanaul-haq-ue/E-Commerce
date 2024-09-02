@@ -105,7 +105,10 @@
                                             </div>
                                             <div class="product-extra-link2">
                                                 <button type="submit" class="button button-add-to-cart">Add to cart</button>
-                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
+                                                @if (Session::get('customer_id'))
+                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href=""><i class="fi-rs-heart"></i></a>
+                                                @endif
+                                                
                                                 <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
                                             </div>
                                         </div>
